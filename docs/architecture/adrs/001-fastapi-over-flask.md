@@ -4,7 +4,7 @@
 Accepted
 
 ## Context
-Building a new notification service for satellite operators and observers 
+Building a new notification service for satellite operators and observers
 for different aspects of FOV interference notifications.
 
 ## Decision

@@ -1,0 +1,13 @@
+[project]
+name = "fov-notification-service"
+version = "0.1.0"
+description = "Notification service for observation schedules and satellite FOV interference"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "black>=25.12.0",
+    "fastapi>=0.124.0",
+    "pre-commit>=4.5.0",
+    "ruff>=0.14.8",
+    "towncrier>=25.8.0",
+]
