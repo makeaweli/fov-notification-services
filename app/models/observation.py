@@ -2,7 +2,7 @@ import enum
 from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Enum, ForeignKey, String
+from sqlalchemy import DateTime, Enum, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -52,16 +52,20 @@ class Observation(Base):
     target_name: Mapped[str | None] = mapped_column(String(255), index=True)
     ra: Mapped[float | None] = mapped_column()  # Right ascension (degrees)
     dec: Mapped[float | None] = mapped_column()  # Declination (degrees)
-    start_time: Mapped[datetime] = mapped_column(nullable=False, index=True)
-    end_time: Mapped[datetime] = mapped_column(nullable=False)
+    start_time: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, index=True
+    )
+    end_time: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     fov_radius: Mapped[float | None] = mapped_column()  # Field of view radius (degrees)
     on_sky_angle: Mapped[float | None] = mapped_column()
     instrument: Mapped[str | None] = mapped_column(String(255))
 
     created_at: Mapped[datetime | None] = mapped_column(
-        default=lambda: datetime.now(UTC)
+        DateTime(timezone=True), default=lambda: datetime.now(UTC)
     )
-    archived_at: Mapped[datetime | None] = mapped_column(nullable=True)
+    archived_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
 
     schedule: Mapped["Schedule | None"] = relationship(
         "Schedule", back_populates="observations"

@@ -243,7 +243,7 @@ class TestRetrieveSchedules:
             with pytest.raises(ScheduleRetrievalError, match="Request timed out"):
                 await fetch_schedule_data("https://example.com/schedule")
 
-        # Test that retrieve_schedule catches the error
+        # Test that retrieve_schedule propagates the error
         with patch(
             "app.tasks.retrieve_schedules.SessionLocal", return_value=db_session
         ):
@@ -251,10 +251,14 @@ class TestRetrieveSchedules:
                 "app.tasks.retrieve_schedules.fetch_schedule_data",
                 side_effect=ScheduleRetrievalError("Request timed out"),
             ):
-                # Should not raise - error is caught and logged
-                await retrieve_schedule(
-                    "test_observatory", "https://example.com/schedule", 0.0, 0.0, 0.0
-                )
+                with pytest.raises(ScheduleRetrievalError, match="Request timed out"):
+                    await retrieve_schedule(
+                        "test_observatory",
+                        "https://example.com/schedule",
+                        observatory_latitude=0.0,
+                        observatory_longitude=0.0,
+                        observatory_elevation=0.0,
+                    )
 
     @pytest.mark.asyncio
     async def test_retrieve_empty_schedule(self, db_session, create_schedule):

@@ -1,7 +1,7 @@
 # Backend Dockerfile for FOV Notification Service
 FROM --platform=linux/amd64 python:3.12-slim AS python
 
-# Install uv for fast dependency management
+# Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app

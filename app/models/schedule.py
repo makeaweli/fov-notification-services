@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String
+from sqlalchemy import DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -32,13 +32,16 @@ class Schedule(Base):
         String(255), nullable=False
     )  # API endpoint or manual upload
     schedule_start: Mapped[datetime] = mapped_column(
-        nullable=False
+        DateTime(timezone=True), nullable=False
     )  # First observation start
     schedule_end: Mapped[datetime] = mapped_column(
-        nullable=False
+        DateTime(timezone=True), nullable=False
     )  # Last observation end
-    created_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(UTC))
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(UTC)
+    )
     updated_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
         default=lambda: datetime.now(UTC),
         onupdate=lambda: datetime.now(UTC),
     )
