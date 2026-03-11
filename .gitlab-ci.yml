@@ -14,7 +14,7 @@ Prd API Build:
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
         paths:
-          - "services/**/*"
+          - "services/operator/**/*"
 
 Prd API Push Tag:
   extends: .push_tag
@@ -27,7 +27,7 @@ Prd API Push Tag:
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
         paths:
-          - "services/**/*"
+          - "services/operator/**/*"
 
 Dev API Build:
   extends: .build_image
@@ -41,7 +41,7 @@ Dev API Build:
     - if: $CI_COMMIT_BRANCH == "develop"
       changes:
         paths:
-          - "services/**/*"
+          - "services/operator/**/*"
 
 Dev API Push Tag:
   extends: .push_tag
@@ -54,4 +54,4 @@ Dev API Push Tag:
     - if: $CI_COMMIT_BRANCH == "develop"
       changes:
         paths:
-          - "services/**/*"
+          - "services/operator/**/*"
